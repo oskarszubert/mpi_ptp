@@ -1,5 +1,5 @@
 # Sieve of Eratosthenes with MPI
-**Segmented sieve**  - looking for prime numbers in given scope: [m ,n]: m > n > 1.
+**Segmented sieve**  - looking for prime numbers in given scope: [m ,n]: n > m > 1.
 
 ## Algorithms:
 * Sieve of Eratosthenes 
@@ -13,7 +13,7 @@ By default program runs Sieve if you want to calculate PI number add one more ar
 
 ## MPI
 Class Process_farm which contains and support MPI can be used with different algorithms coz its writen universally.
-If you want to use Class Process_farm with your own method you need to create:\
+If you want to use Class Process_farm with your own method you need to create:
 * computation function: takes (left_bound, right_bound) as args
 * function for storing and handling result(s): takes: (prev_primes, new_primes) as args
 * pass type of your result(<list> <int> etc.)

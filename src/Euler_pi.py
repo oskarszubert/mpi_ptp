@@ -1,6 +1,7 @@
 from math import sqrt
 
 class Euler_pi:
+	
 	@staticmethod
 	def compute_subtotals(args):
 		subtotal = 0

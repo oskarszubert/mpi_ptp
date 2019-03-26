@@ -21,7 +21,7 @@ class Process_farm:
     def master(self, result_function, partition_array, granulation):
         number = 10
         work = granulation
-        result = 0
+        result  = []
 
         # send first jobs 
         for proc in range(1,self.size):
@@ -70,6 +70,9 @@ class Process_farm:
     @staticmethod
     def create_partition_array(begin_at, scope, granulation):
         partition_array = []
+
+        if granulation == 0:
+            granulation = 1
 
         num_of_ele_in_one_part = (scope - begin_at) // granulation
         for i in range(granulation + 1):

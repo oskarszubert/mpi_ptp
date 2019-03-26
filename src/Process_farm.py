@@ -10,18 +10,17 @@ class Process_farm:
         self.rank = self.comm.Get_rank()
         self.status = MPI.Status()
 
-    def run(self, compute_function, result_function, begin_at, scope, granulation):
+    def run(self, result, compute_function, result_function, begin_at, scope, granulation):
         if self.rank == 0:   
             partition_array = Process_farm.create_partition_array(begin_at, scope + 1, granulation -1 )
-            result = self.master(result_function, partition_array , granulation)
+            result = self.master(result, result_function, partition_array , granulation)
             return result
         else:
             self.slave(compute_function)
 
-    def master(self, result_function, partition_array, granulation):
-        number = 10
+    def master(self, result, result_function, partition_array, granulation):
+        number = 10 
         work = granulation
-        result  = []
 
         # send first jobs 
         for proc in range(1,self.size):
@@ -63,7 +62,7 @@ class Process_farm:
             if data == -1:
                 exit()
             else:
-                data = function(data)
+                data = function(data[0], data[1] - 1)
                 self.comm.send(data, dest = 0)
 
 

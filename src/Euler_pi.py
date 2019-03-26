@@ -3,9 +3,9 @@ from math import sqrt
 class Euler_pi:
 	
 	@staticmethod
-	def compute_subtotals(args):
+	def compute_subtotals(left_bound, right_bound):
 		subtotal = 0
-		for number in range(args[0], args[1]):
+		for number in range(left_bound, right_bound + 1):
 			subtotal += (number**2)**-1
 
 		return subtotal

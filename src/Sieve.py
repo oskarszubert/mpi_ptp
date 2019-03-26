@@ -13,11 +13,6 @@ class Sieve():
 
                 for j in range(i**2, scope + 1, i):
                     array_of_primes[j] = 1
-        lol = []
-
-        for i in range(scope):
-            if array_of_primes[i] == 0:
-                lol.append(i)
 
         return array_of_primes
 

@@ -6,10 +6,10 @@
 * Valuation of PI uses Euler formula 
 
 ## Run program:
-To run program run script `run.sh`.
-or `run.sh <number of processors> <begin at> <end at> <granulation>`.
+To run program just use script: `run.sh`.
+or `run.sh <number of processors> <begin at> <end at> <granulation>` - in case of compute prime numbers,
+or `run.sh <number of processors> <scope> <granulation>` - in case of compute Pi number.
 
-By default program runs Sieve if you want to calculate PI number add one more argv: `2` and start counting from 1.
 
 ## MPI
 Class Process_farm which contains and support MPI can be used with different algorithms coz its writen universally.
@@ -18,6 +18,8 @@ If you want to use Class Process_farm with your own method you need to create:
 * function for storing and handling result(s): takes: (prev_primes, new_primes) as args
 * pass type of your result(<list> <int> etc.)
 
+## Result
 
+Result will be saved as `*.txt` file with time and info about numb of processors.
 `Python3.6.5`\
 `mpi4py` 

@@ -1,6 +1,6 @@
-from time import sleep
+from datetime import datetime
 from mpi4py import MPI
-
+import os
 
 class Process_farm:
 
@@ -12,18 +12,17 @@ class Process_farm:
 
     def run(self, result, compute_function, result_function, begin_at, scope, granulation):
         if self.rank == 0:   
-            partition_array = Process_farm.create_partition_array(begin_at, scope + 1, granulation -1 )
+            partition_array = Process_farm.create_partition_array(begin_at, scope + 1, granulation - 1)
             result = self.master(result, result_function, partition_array , granulation)
             return result
         else:
             self.slave(compute_function)
 
     def master(self, result, result_function, partition_array, granulation):
-        number = 10 
         work = granulation
 
         # send first jobs 
-        for proc in range(1,self.size):
+        for proc in range(1, self.size):
             data = partition_array[ proc - 1 ], partition_array[ proc ]
             self.comm.send(data, dest=proc)
 
@@ -65,7 +64,6 @@ class Process_farm:
                 data = function(data[0], data[1] - 1)
                 self.comm.send(data, dest = 0)
 
-
     @staticmethod
     def create_partition_array(begin_at, scope, granulation):
         partition_array = []
@@ -81,3 +79,26 @@ class Process_farm:
         partition_array.append(scope)
 
         return partition_array
+
+    def save_to_file(self, *args):
+        if self.rank == 0:
+            if not os.path.exists('results'):
+                os.makedirs('results')
+
+            result_filename = 'pfarm_' + datetime.now().strftime('%Y%m%d_%H%M%S')
+            result_filename = 'results/' + result_filename + '.txt'
+
+            result_file = open(result_filename, 'w')
+            result_file.write('Computation on {} processors with granulation: {}.\n'.format(self.size, args[0]))
+            result_file.write('Time = '+ args[1]+' [sec].\n')
+            result_file.write(args[2])
+
+            if isinstance(args[-1], list):
+                for arg in args[-1]:
+                    result_file.write( str(arg) + '\n')
+            else:
+                result_file.write( str(args[-1]) )
+                    
+            result_file.close()
+
+        return result_filename

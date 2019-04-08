@@ -13,7 +13,6 @@ class Process_farm:
     def run(self, result, compute_function, result_function, begin_at, scope, granulation):
         if self.rank == 0:   
             partition_array = Process_farm.create_partition_array(begin_at, scope + 1, granulation)
-            print(partition_array)
             result = self.master(result, result_function, partition_array , granulation)
             return result
         else:
@@ -51,9 +50,7 @@ class Process_farm:
             end_status = -1
             self.comm.send(end_status, dest=proc)
 
-
         return result
-
 
     def slave(self, function):
         while True:

@@ -97,7 +97,7 @@ class Process_farm:
                 for arg in args[-1]:
                     result_file.write( str(arg) + '\n')
             else:
-                result_file.write( str(args[-1]) )
+                result_file.write( str(args[-1]) + '\n')
                     
             result_file.close()
 

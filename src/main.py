@@ -42,6 +42,10 @@ if __name__ == '__main__':
         info_str = 'Found {} primes number.\n'.format(len(res))
         result_filename = ptp.save_to_file(granulation, time_as_str, info_str, res)
 
+        print(info_str + '\n' + 'Time = ' + time_as_str + '[sec].')
+        print('Result save into the file: ' + result_filename )
+
+
     if trigger == 2:
         pi_num = Euler_pi()
         res = 0
@@ -51,8 +55,9 @@ if __name__ == '__main__':
         time.stop()
         
         time_as_str =  '{0:8f}'.format(time.result)
+        pi = pi_num.calucalte_pi(res)
         info_str = 'Found approximation on PI number: '
-        result_filename = ptp.save_to_file(granulation, time_as_str, info_str, pi_num.calucalte_pi(res))
+        result_filename = ptp.save_to_file(granulation, time_as_str, info_str, pi)
 
-print(info_str + '\n' + 'Time = ' + time_as_str + '[sec].')
-print('Result save into the file: ' + result_filename)
+        print(info_str + str(pi) + '\n' + 'Time = ' + time_as_str + '[sec].')
+        print('Result save into the file: ' + result_filename )

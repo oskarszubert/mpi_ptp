@@ -12,7 +12,8 @@ class Process_farm:
 
     def run(self, result, compute_function, result_function, begin_at, scope, granulation):
         if self.rank == 0:   
-            partition_array = Process_farm.create_partition_array(begin_at, scope + 1, granulation - 1)
+            partition_array = Process_farm.create_partition_array(begin_at, scope + 1, granulation)
+            print(partition_array)
             result = self.master(result, result_function, partition_array , granulation)
             return result
         else:
@@ -72,7 +73,7 @@ class Process_farm:
             granulation = 1
 
         num_of_ele_in_one_part = (scope - begin_at) // granulation
-        for i in range(granulation + 1):
+        for i in range(granulation):
             partition_array.append(begin_at)
             begin_at += num_of_ele_in_one_part
 

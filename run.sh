@@ -1,13 +1,15 @@
 #!/bin/bash
 
+flag_with_hostname='-f hostfile'
+
 if [[ $# -eq 4 ]] ; then
 	
 	if [[ $4 -lt $1 ]]; then
 		printf 'Cannot pass granulation less than number of proc!\n'
 		printf 'Set: granulation = number of proc.\n------------\n'
-		mpiexec -n $1 -host localhost python3 src/main.py $2 $3 $1
+		mpiexec -n $1 $flag_with_hostname python3 src/main.py $2 $3 $1
 	else
-		mpiexec -n $1 -host localhost python3 src/main.py $2 $3 $4
+		mpiexec -n $1 $flag_with_hostname python3 src/main.py $2 $3 $4
 	fi
 
 elif [[ $# -eq 3 ]] ; then
@@ -16,9 +18,9 @@ elif [[ $# -eq 3 ]] ; then
 		printf 'Cannot pass granulation less than number of proc!\n'
 		printf 'Set: granulation = number of proc.\n------------\n'
 
-		mpiexec -n $1 -host localhost python3 src/main.py $2 $1
+		mpiexec -n $1 $flag_with_hostname python3 src/main.py $2 $1
 	else
-		mpiexec -n $1 -host localhost python3 src/main.py $2 $3
+		mpiexec -n $1 $flag_with_hostname python3 src/main.py $2 $3
 	fi
 
 else 
@@ -34,9 +36,9 @@ else
 		if [[ $granulation -lt $proc ]]; then
 			printf 'Cannot pass granulation less than number of proc!\n'
 			printf 'Set: granulation = number of proc.\n------------\n'
-			mpiexec -n $proc -host localhost python3 src/main.py $begin_at $end_at $proc
+			mpiexec -n $proc $flag_with_hostname python3 src/main.py $begin_at $end_at $proc
 		else
-			mpiexec -n $proc -host localhost python3 src/main.py $begin_at $end_at $granulation
+			mpiexec -n $proc $flag_with_hostname python3 src/main.py $begin_at $end_at $granulation
 		fi
 
 	elif [[ $trigger == 2 ]]; then
@@ -48,9 +50,9 @@ else
 
 			printf 'Cannot pass granulation less than number of proc!\n'
 			printf 'Set: granulation = number of proc.\n------------\n'
-			mpiexec -n $proc -host localhost python3 src/main.py $scope $proc
+			mpiexec -n $proc $flag_with_hostname python3 src/main.py $scope $proc
 		else
-			mpiexec -n $proc -host localhost python3 src/main.py $scope $granulation
+			mpiexec -n $proc $flag_with_hostname python3 src/main.py $scope $granulation
 		fi
 	else
 		echo 'Try again!'
